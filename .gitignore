@@ -1,5 +1,7 @@
 # Visual Studio 
 
+Output/
+
 # User-specific files
 *.suo
 *.user

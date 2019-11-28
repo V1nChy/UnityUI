@@ -1,11 +1,10 @@
 # README #
 
-This document details how to get it up and running on your computer and start modifying the code!
+version:2017.4.16f1
 
-### What license is the UI system shipped under? ###
-Please see the LICENSE file.
+from:https://bitbucket.org/Unity-Technologies/ui
 
-### How do I get started? ###
+### started ###
 * Clone this repository onto a location on your computer.
 * Configure your IDE for the Unity coding standard, look in the .editorconfig file for more information
 * Open the project in Visual Studio or MonoDevelop
@@ -25,8 +24,3 @@ Please see the LICENSE file.
         * Open the file in a text editor
         * Locate the section: <Target Name="AfterBuild">
         * Follow the instructions in the comments
-
-### Will you be taking pull requests? ###
-At this stage the UI system is undergoing further development internally with many design decisions still being debated and implemented. Also, we are waiting to see the volume of pull requests and the time it will take the process them. As such, we are prioritizing first bug fix pull requests and will iterate on this process going forward.
-
-https://bitbucket.org/Unity-Technologies/ui

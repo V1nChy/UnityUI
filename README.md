@@ -28,3 +28,5 @@ Please see the LICENSE file.
 
 ### Will you be taking pull requests? ###
 At this stage the UI system is undergoing further development internally with many design decisions still being debated and implemented. Also, we are waiting to see the volume of pull requests and the time it will take the process them. As such, we are prioritizing first bug fix pull requests and will iterate on this process going forward.
+
+https://bitbucket.org/Unity-Technologies/ui

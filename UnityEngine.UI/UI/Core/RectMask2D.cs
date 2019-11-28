@@ -5,21 +5,9 @@ using UnityEngine.EventSystems;
 namespace UnityEngine.UI
 {
     [AddComponentMenu("UI/Rect Mask 2D", 13)]
-    [ExecuteAlways]
+    [ExecuteInEditMode]
     [DisallowMultipleComponent]
     [RequireComponent(typeof(RectTransform))]
-    /// <summary>
-    /// A 2D rectangular mask that allows for clipping / masking of areas outside the mask.
-    /// </summary>
-    /// <remarks>
-    /// The RectMask2D behaves in a similar way to a standard Mask component. It differs though in some of the restrictions that it has.
-    /// A RectMask2D:
-    /// *Only works in the 2D plane
-    /// *Requires elements on the mask to be coplanar.
-    /// *Does not require stencil buffer / extra draw calls
-    /// *Requires fewer draw calls
-    /// *Culls elements that are outside the mask area.
-    /// </remarks>
     public class RectMask2D : UIBehaviour, IClipper, ICanvasRaycastFilter
     {
         [NonSerialized]
@@ -27,9 +15,6 @@ namespace UnityEngine.UI
 
         [NonSerialized]
         private RectTransform m_RectTransform;
-
-        [NonSerialized]
-        private HashSet<MaskableGraphic> m_MaskableTargets = new HashSet<MaskableGraphic>();
 
         [NonSerialized]
         private HashSet<IClippable> m_ClipTargets = new HashSet<IClippable>();
@@ -68,9 +53,6 @@ namespace UnityEngine.UI
             }
         }
 
-        /// <summary>
-        /// Get the Rect for the mask in canvas space.
-        /// </summary>
         public Rect canvasRect
         {
             get
@@ -79,9 +61,6 @@ namespace UnityEngine.UI
             }
         }
 
-        /// <summary>
-        /// Helper function to get the RectTransform for the mask.
-        /// </summary>
         public RectTransform rectTransform
         {
             get { return m_RectTransform ?? (m_RectTransform = GetComponent<RectTransform>()); }
@@ -106,7 +85,6 @@ namespace UnityEngine.UI
             // that the mask state has changed.
             base.OnDisable();
             m_ClipTargets.Clear();
-            m_MaskableTargets.Clear();
             m_Clippers.Clear();
             ClipperRegistry.Unregister(this);
             MaskUtilities.Notify2DMaskStateChanged(this);
@@ -183,79 +161,44 @@ namespace UnityEngine.UI
                 (renderMode == RenderMode.ScreenSpaceCamera || renderMode == RenderMode.ScreenSpaceOverlay) &&
                 !clipRect.Overlaps(rootCanvasRect, true);
 
-            if (maskIsCulled)
+            bool clipRectChanged = clipRect != m_LastClipRectCanvasSpace;
+            bool forceClip = m_ForceClip;
+
+            // Avoid looping multiple times.
+            foreach (IClippable clipTarget in m_ClipTargets)
             {
+                if (clipRectChanged || forceClip)
+                {
+                    clipTarget.SetClipRect(clipRect, validRect);
+                }
+
+                var maskable = clipTarget as MaskableGraphic;
+                if (maskable != null && !maskable.canvasRenderer.hasMoved && !clipRectChanged)
+                    continue;
+
                 // Children are only displayed when inside the mask. If the mask is culled, then the children
                 // inside the mask are also culled. In that situation, we pass an invalid rect to allow callees
                 // to avoid some processing.
-                clipRect = Rect.zero;
-                validRect = false;
-            }
-
-            if (clipRect != m_LastClipRectCanvasSpace)
-            {
-                foreach (IClippable clipTarget in m_ClipTargets)
-                {
-                    clipTarget.SetClipRect(clipRect, validRect);
-                }
-
-                foreach (MaskableGraphic maskableTarget in m_MaskableTargets)
-                {
-                    maskableTarget.SetClipRect(clipRect, validRect);
-                    maskableTarget.Cull(clipRect, validRect);
-                }
-            }
-            else if (m_ForceClip)
-            {
-                foreach (IClippable clipTarget in m_ClipTargets)
-                {
-                    clipTarget.SetClipRect(clipRect, validRect);
-                }
-
-                foreach (MaskableGraphic maskableTarget in m_MaskableTargets)
-                {
-                    maskableTarget.SetClipRect(clipRect, validRect);
-
-                    if (maskableTarget.canvasRenderer.hasMoved)
-                        maskableTarget.Cull(clipRect, validRect);
-                }
-            }
-            else
-            {
-                foreach (MaskableGraphic maskableTarget in m_MaskableTargets)
-                {
-                    if (maskableTarget.canvasRenderer.hasMoved)
-                        maskableTarget.Cull(clipRect, validRect);
-                }
+                clipTarget.Cull(
+                    maskIsCulled ? Rect.zero : clipRect,
+                    maskIsCulled ? false : validRect);
             }
 
             m_LastClipRectCanvasSpace = clipRect;
             m_ForceClip = false;
         }
 
-        /// <summary>
-        /// Add a IClippable to be tracked by the mask.
-        /// </summary>
-        /// <param name="clippable">Add the clippable object for this mask</param>
         public void AddClippable(IClippable clippable)
         {
             if (clippable == null)
                 return;
             m_ShouldRecalculateClipRects = true;
-            MaskableGraphic maskable = clippable as MaskableGraphic;
-
-            if (maskable == null)
+            if (!m_ClipTargets.Contains(clippable))
                 m_ClipTargets.Add(clippable);
-            else
-                m_MaskableTargets.Add(maskable);
 
             m_ForceClip = true;
         }
 
-        /// <summary>
-        /// Remove an IClippable from being tracked by the mask.
-        /// </summary>
-        /// <param name="clippable">Remove the clippable object from this mask</param>
         public void RemoveClippable(IClippable clippable)
         {
             if (clippable == null)
@@ -263,13 +206,7 @@ namespace UnityEngine.UI
 
             m_ShouldRecalculateClipRects = true;
             clippable.SetClipRect(new Rect(), false);
-
-            MaskableGraphic maskable = clippable as MaskableGraphic;
-
-            if (maskable == null)
-                m_ClipTargets.Remove(clippable);
-            else
-                m_MaskableTargets.Remove(maskable);
+            m_ClipTargets.Remove(clippable);
 
             m_ForceClip = true;
         }

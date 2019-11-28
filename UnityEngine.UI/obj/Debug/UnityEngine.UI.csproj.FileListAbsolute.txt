@@ -1,0 +1,6 @@
+G:\Workspace\github\UnityUI\UnityEngine.UI\bin\Debug\UnityEngine.UI.dll
+G:\Workspace\github\UnityUI\UnityEngine.UI\bin\Debug\UnityEngine.UI.pdb
+G:\Workspace\github\UnityUI\UnityEngine.UI\bin\Debug\UnityEngine.dll
+G:\Workspace\github\UnityUI\UnityEngine.UI\obj\Debug\UnityEngine.UI.csprojResolveAssemblyReference.cache
+G:\Workspace\github\UnityUI\UnityEngine.UI\obj\Debug\UnityEngine.UI.dll
+G:\Workspace\github\UnityUI\UnityEngine.UI\obj\Debug\UnityEngine.UI.pdb

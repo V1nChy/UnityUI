@@ -8,9 +8,6 @@ namespace UnityEngine.EventSystems
     /// </summary>
     [AddComponentMenu("Event/Physics Raycaster")]
     [RequireComponent(typeof(Camera))]
-    /// <summary>
-    /// Raycaster for casting against 3D Physics components.
-    /// </summary>
     public class PhysicsRaycaster : BaseRaycaster
     {
         /// <summary>
@@ -74,66 +71,31 @@ namespace UnityEngine.EventSystems
             set { m_EventMask = value; }
         }
 
-        /// <summary>
-        /// Max number of ray intersection allowed to be found.
-        /// </summary>
-        /// <remarks>
-        /// A value of zero will represent using the allocating version of the raycast function where as any other value will use the non allocating version.
-        /// </remarks>
         public int maxRayIntersections
         {
             get { return m_MaxRayIntersections; }
             set { m_MaxRayIntersections = value; }
         }
 
-        /// <summary>
-        /// Returns a ray going from camera through the event position and the distance between the near and far clipping planes along that ray.
-        /// </summary>
-        /// <param name="eventData">The pointer event for which we will cast a ray.</param>
-        /// <param name="ray">The ray to use.</param>
-        /// <param name="distanceToClipPlane">The distance between the near and far clipping planes along the ray.</param>
-        /// <returns>True if the operation was successful. false if it was not possible to compute, such as the eventPosition being outside of the view.</returns>
-        protected bool ComputeRayAndDistance(PointerEventData eventData, ref Ray ray, ref float distanceToClipPlane)
+        protected void ComputeRayAndDistance(PointerEventData eventData, out Ray ray, out float distanceToClipPlane)
         {
-            if (eventCamera == null)
-                return false;
-
-            var eventPosition = Display.RelativeMouseAt(eventData.position);
-            if (eventPosition != Vector3.zero)
-            {
-                // We support multiple display and display identification based on event position.
-                int eventDisplayIndex = (int)eventPosition.z;
-
-                // Discard events that are not part of this display so the user does not interact with multiple displays at once.
-                if (eventDisplayIndex != eventCamera.targetDisplay)
-                    return false;
-            }
-            else
-            {
-                // The multiple display system is not supported on all platforms, when it is not supported the returned position
-                // will be all zeros so when the returned index is 0 we will default to the event data to be safe.
-                eventPosition = eventData.position;
-            }
-
-            // Cull ray casts that are outside of the view rect. (case 636595)
-            if (!eventCamera.pixelRect.Contains(eventPosition))
-                return false;
-
-            ray = eventCamera.ScreenPointToRay(eventPosition);
+            ray = eventCamera.ScreenPointToRay(eventData.position);
             // compensate far plane distance - see MouseEvents.cs
             float projectionDirection = ray.direction.z;
             distanceToClipPlane = Mathf.Approximately(0.0f, projectionDirection)
                 ? Mathf.Infinity
                 : Mathf.Abs((eventCamera.farClipPlane - eventCamera.nearClipPlane) / projectionDirection);
-            return true;
         }
 
         public override void Raycast(PointerEventData eventData, List<RaycastResult> resultAppendList)
         {
-            Ray ray = new Ray();
-            float distanceToClipPlane = 0;
-            if (!ComputeRayAndDistance(eventData, ref ray, ref distanceToClipPlane))
+            // Cull ray casts that are outside of the view rect. (case 636595)
+            if (eventCamera == null || !eventCamera.pixelRect.Contains(eventData.position))
                 return;
+
+            Ray ray;
+            float distanceToClipPlane;
+            ComputeRayAndDistance(eventData, out ray, out distanceToClipPlane);
 
             int hitCount = 0;
 

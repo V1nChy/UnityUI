@@ -4,10 +4,6 @@ using UnityEngine.UI;
 namespace UnityEditor.UI
 {
     [CustomPropertyDrawer(typeof(Navigation), true)]
-    /// <summary>
-    ///   PropertyDrawer for Navigation.
-    ///   This is a PropertyDrawer for Navigation it is implemented using the standard unity PropertyDrawer framework.
-    /// </summary>
     public class NavigationDrawer : PropertyDrawer
     {
         private class Styles
@@ -16,7 +12,7 @@ namespace UnityEditor.UI
 
             public Styles()
             {
-                navigationContent = EditorGUIUtility.TrTextContent("Navigation");
+                navigationContent = new GUIContent("Navigation");
             }
         }
 

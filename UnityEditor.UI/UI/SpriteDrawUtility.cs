@@ -3,10 +3,7 @@ using UnityEngine;
 
 namespace UnityEditor.UI
 {
-    /// <summary>
-    /// PropertyDrawer for [[SpriteState]].
-    /// This is a PropertyDrawer for SpriteState it is implemented using the standard unity PropertyDrawer framework.
-    /// </summary>
+    // Tools for the editor
     internal class SpriteDrawUtility
     {
         static Texture2D s_ContrastTex;
@@ -154,7 +151,9 @@ namespace UnityEditor.UI
 
             if (mat == null)
             {
+                GL.sRGBWrite = QualitySettings.activeColorSpace == ColorSpace.Linear;
                 GUI.DrawTextureWithTexCoords(paddedTexArea, tex, uv, true);
+                GL.sRGBWrite = false;
             }
             else
             {

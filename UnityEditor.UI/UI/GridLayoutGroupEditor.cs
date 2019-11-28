@@ -7,10 +7,6 @@ namespace UnityEditor.UI
 {
     [CustomEditor(typeof(GridLayoutGroup), true)]
     [CanEditMultipleObjects]
-    /// <summary>
-    ///   Custom Editor for the GridLayout Component.
-    ///   Extend this class to write a custom editor for an GridLayout-derived component.
-    /// </summary>
     public class GridLayoutGroupEditor : Editor
     {
         SerializedProperty m_Padding;

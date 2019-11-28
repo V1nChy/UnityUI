@@ -2,14 +2,10 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Globalization;
 
 namespace UnityEditor.Events
 {
     [CustomPreview(typeof(GameObject))]
-    /// <summary>
-    ///   Custom preview drawing that will draw the layout properties of a given object.
-    /// </summary>
     class LayoutPropertiesPreview : ObjectPreview
     {
         private const float kLabelWidth = 110;
@@ -42,7 +38,7 @@ namespace UnityEditor.Events
         {
             if (m_Title == null)
             {
-                m_Title = EditorGUIUtility.TrTextContent("Layout Properties");
+                m_Title = new GUIContent("Layout Properties");
             }
             return m_Title;
         }
@@ -95,17 +91,17 @@ namespace UnityEditor.Events
 
             // Show properties
 
-            ShowProp(ref labelRect, ref valueRect, ref sourceRect, "Min Width", LayoutUtility.GetLayoutProperty(rect, e => e.minWidth, 0, out source).ToString(CultureInfo.InvariantCulture.NumberFormat), source);
-            ShowProp(ref labelRect, ref valueRect, ref sourceRect, "Min Height", LayoutUtility.GetLayoutProperty(rect, e => e.minHeight, 0, out source).ToString(CultureInfo.InvariantCulture.NumberFormat), source);
-            ShowProp(ref labelRect, ref valueRect, ref sourceRect, "Preferred Width", LayoutUtility.GetLayoutProperty(rect, e => e.preferredWidth, 0, out source).ToString(CultureInfo.InvariantCulture.NumberFormat), source);
-            ShowProp(ref labelRect, ref valueRect, ref sourceRect, "Preferred Height", LayoutUtility.GetLayoutProperty(rect, e => e.preferredHeight, 0, out source).ToString(CultureInfo.InvariantCulture.NumberFormat), source);
+            ShowProp(ref labelRect, ref valueRect, ref sourceRect, "Min Width", LayoutUtility.GetLayoutProperty(rect, e => e.minWidth, 0, out source).ToString(), source);
+            ShowProp(ref labelRect, ref valueRect, ref sourceRect, "Min Height", LayoutUtility.GetLayoutProperty(rect, e => e.minHeight, 0, out source).ToString(), source);
+            ShowProp(ref labelRect, ref valueRect, ref sourceRect, "Preferred Width", LayoutUtility.GetLayoutProperty(rect, e => e.preferredWidth, 0, out source).ToString(), source);
+            ShowProp(ref labelRect, ref valueRect, ref sourceRect, "Preferred Height", LayoutUtility.GetLayoutProperty(rect, e => e.preferredHeight, 0, out source).ToString(), source);
 
             float flexible = 0;
 
             flexible = LayoutUtility.GetLayoutProperty(rect, e => e.flexibleWidth, 0, out source);
-            ShowProp(ref labelRect, ref valueRect, ref sourceRect, "Flexible Width", flexible > 0 ? ("enabled (" + flexible.ToString(CultureInfo.InvariantCulture.NumberFormat) + ")") : "disabled", source);
+            ShowProp(ref labelRect, ref valueRect, ref sourceRect, "Flexible Width", flexible > 0 ? ("enabled (" + flexible.ToString() + ")") : "disabled", source);
             flexible = LayoutUtility.GetLayoutProperty(rect, e => e.flexibleHeight, 0, out source);
-            ShowProp(ref labelRect, ref valueRect, ref sourceRect, "Flexible Height", flexible > 0 ? ("enabled (" + flexible.ToString(CultureInfo.InvariantCulture.NumberFormat) + ")") : "disabled", source);
+            ShowProp(ref labelRect, ref valueRect, ref sourceRect, "Flexible Height", flexible > 0 ? ("enabled (" + flexible.ToString() + ")") : "disabled", source);
 
             if (!rect.GetComponent<LayoutElement>())
             {

@@ -1,8 +1,8 @@
 # README #
 
-version:2017.4.16f1
+* version: 2017.4.16f1
 
-from:https://bitbucket.org/Unity-Technologies/ui
+* from: https://bitbucket.org/Unity-Technologies/ui
 
 ### started ###
 * Clone this repository onto a location on your computer.

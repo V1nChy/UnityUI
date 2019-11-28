@@ -143,6 +143,7 @@
     <Compile Include="UI\Core\Dropdown.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="UI\Core\EmptyRaycast.cs" />
     <Compile Include="UI\Core\FontData.cs">
       <SubType>Code</SubType>
     </Compile>

@@ -396,5 +396,6 @@
       <Link>UI\Core\VertexModifiers\Shadow.cs</Link>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="UI\Core\EmptyRaycast.cs" />
   </ItemGroup>
 </Project>

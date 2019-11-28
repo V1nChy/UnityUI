@@ -1,9 +1,0 @@
-G:\Workspace\github\UnityUI\UnityEditor.UI\bin\Debug\UnityEditor.UI.dll
-G:\Workspace\github\UnityUI\UnityEditor.UI\bin\Debug\UnityEditor.UI.pdb
-G:\Workspace\github\UnityUI\UnityEditor.UI\bin\Debug\UnityEditor.dll
-G:\Workspace\github\UnityUI\UnityEditor.UI\bin\Debug\UnityEngine.dll
-G:\Workspace\github\UnityUI\UnityEditor.UI\bin\Debug\UnityEngine.UI.dll
-G:\Workspace\github\UnityUI\UnityEditor.UI\bin\Debug\UnityEngine.UI.pdb
-G:\Workspace\github\UnityUI\UnityEditor.UI\obj\Debug\UnityEditor.UI.csprojResolveAssemblyReference.cache
-G:\Workspace\github\UnityUI\UnityEditor.UI\obj\Debug\UnityEditor.UI.dll
-G:\Workspace\github\UnityUI\UnityEditor.UI\obj\Debug\UnityEditor.UI.pdb

@@ -59,7 +59,7 @@
     <Copy Condition="'$(Configuration)' == 'Debug' And Exists('$(TargetDir)$(TargetName).dll.mdb')" SourceFiles="$(TargetDir)$(TargetName).dll.mdb" DestinationFiles="$(ProjectDir)..\Output\$(TargetName).dll.mdb" />
     <Copy Condition="'$(Configuration)' == 'Debug' And Exists('$(TargetDir)$(TargetName).pdb')" SourceFiles="$(TargetDir)$(TargetName).pdb" DestinationFiles="$(ProjectDir)..\Output\$(TargetName).pdb" />
     <!--Uncomment the block below and change the destination to copy the built dll into your unity install directory-->
-    <!--<Copy SourceFiles="$(TargetDir)$(TargetName).dll" DestinationFiles="C:\Program Files (x86)\Unity\Editor\Data\UnityExtensions\Unity\GUISystem\4.6.0\$(TargetName).dll"/>-->
+    <Copy SourceFiles="$(TargetDir)$(TargetName).dll" DestinationFiles="G:\Program Files\unity2017.4.1\Unity\Editor\Data\UnityExtensions\Unity\GUISystem\$(TargetName).dll" />
   </Target>
   <ItemGroup>
     <Compile Include="..\UnityEngine.UI\EventSystem\EventData\AxisEventData.cs">
@@ -155,7 +155,6 @@
     </Compile>
     <Compile Include="..\UnityEngine.UI\UI\Core\AnimationTriggers.cs">
       <Link>UI\Core\AnimationTriggers.cs</Link>
-      <SubType>Code</SubType>
     </Compile>
     <Compile Include="..\UnityEngine.UI\UI\Core\Button.cs">
       <Link>UI\Core\Button.cs</Link>
@@ -193,6 +192,9 @@
       <Link>UI\Core\Dropdown.cs</Link>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="..\UnityEngine.UI\UI\Core\EmptyRaycast.cs">
+      <Link>UI\Core\EmptyRaycast.cs</Link>
+    </Compile>
     <Compile Include="..\UnityEngine.UI\UI\Core\FontData.cs">
       <Link>UI\Core\FontData.cs</Link>
       <SubType>Code</SubType>
@@ -223,6 +225,9 @@
     <Compile Include="..\UnityEngine.UI\UI\Core\Image.cs">
       <Link>UI\Core\Image.cs</Link>
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\UnityEngine.UI\UI\Core\ImageExtent.cs">
+      <Link>UI\Core\ImageExtent.cs</Link>
     </Compile>
     <Compile Include="..\UnityEngine.UI\UI\Core\IMask.cs">
       <Link>UI\Core\IMask.cs</Link>
@@ -307,6 +312,9 @@
     <Compile Include="..\UnityEngine.UI\UI\Core\Navigation.cs">
       <Link>UI\Core\Navigation.cs</Link>
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\UnityEngine.UI\UI\Core\PolygonImage.cs">
+      <Link>UI\Core\PolygonImage.cs</Link>
     </Compile>
     <Compile Include="..\UnityEngine.UI\UI\Core\RawImage.cs">
       <Link>UI\Core\RawImage.cs</Link>
@@ -396,7 +404,5 @@
       <Link>UI\Core\VertexModifiers\Shadow.cs</Link>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="UI\Core\EmptyRaycast.cs" />
-    <Compile Include="UI\Core\ImageExtent.cs" />
   </ItemGroup>
 </Project>

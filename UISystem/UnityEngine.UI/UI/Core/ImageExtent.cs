@@ -1,10 +1,11 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
 namespace UnityEngine.UI
 {
+    [AddComponentMenu("UI/ImageExtent", 10)]
     public class ImageExtent:Image
     {
         private float _alpha = 1.0F;

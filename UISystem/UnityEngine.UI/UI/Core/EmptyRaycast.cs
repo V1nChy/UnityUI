@@ -1,11 +1,11 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
 namespace UnityEngine.UI
 {
-    [AddComponentMenu("UI/EmptyRayCast", 10)]
+    [AddComponentMenu("UI/Effects/EmptyRayCast", 10)]
     public class EmptyRaycast:MaskableGraphic
     {
         protected EmptyRaycast()

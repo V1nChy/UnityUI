@@ -17,5 +17,5 @@
 * If you want the dll's to copy automatically on build
     * For each visual studio project file
         * Open the file in a text editor
-        * Locate the section: <Target Name="AfterBuild">
+        * Locate the section: \<Target Name="AfterBuild">
         * Follow the instructions in the comments

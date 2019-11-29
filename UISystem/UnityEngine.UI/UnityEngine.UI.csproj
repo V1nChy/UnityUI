@@ -166,6 +166,7 @@
     <Compile Include="UI\Core\Image.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="UI\Core\ImageExtent.cs" />
     <Compile Include="UI\Core\IMask.cs">
       <SubType>Code</SubType>
     </Compile>

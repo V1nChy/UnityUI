@@ -397,5 +397,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="UI\Core\EmptyRaycast.cs" />
+    <Compile Include="UI\Core\ImageExtent.cs" />
   </ItemGroup>
 </Project>
